@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "demo": "ts-node src/demo/index"
   },
   "dependencies": {
     "@types/puppeteer": "^3.0.1",

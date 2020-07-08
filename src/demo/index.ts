@@ -12,7 +12,13 @@ const password = process.env.password;
     instagram.login(username ? username : '', password ? password : '')
         .then(mes => {
             console.log(mes);
-            return instagram.upload(`123.jpg`);
+            return instagram.upload('src/demo/123.jpg', 'test');
+        }).then(mes => {
+            console.log(mes);
+            return instagram.getMostRecentPostId();
+        }).then(id => {
+            console.log(id);
+            return instagram.delete(id);
         }).then(mes => {
             console.log(mes);
             instagram.close();
