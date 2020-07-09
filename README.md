@@ -4,24 +4,31 @@
 
 Instgram APIsh is a unofficial Instagram API made with typescript.
 
-## Build
+## How to install
 
-The commands below will build the API to a dist directory
+#### npm
 
 ```bash
-yarn install
-yarn build
+npm i instagram-apish
+```
+
+#### yarn
+
+```bash
+yarn add instagram-apish
 ```
 
 ## How to use
 
 Can either use **await** or **chain commands using promises**
 
-### Example
+#### Example
 
 ```javascript
+import InstagramApish from 'instagram-apish';
+
 (async () => {
-    const instagram = await Instagram(true); //creates instance of instagram APIish
+    const instagram = await InstagramApish(true); //creates instance of instagram APIish
 
     instagram.login('username', 'password') //login
         .then(mes => instagram.upload('123.jpg', 'test')) //uploads image at path '123.jpg' with caption 'test'
@@ -32,7 +39,7 @@ Can either use **await** or **chain commands using promises**
 })();
 ```
 
-### All current methods on Instagram APIsh
+#### All current methods on Instagram APIsh
 
 ```javascript
 instagram.login('username', 'password') //first login with username/email and password
@@ -44,4 +51,13 @@ instagram.follow('username') //follow user with username
 instagram.unfollow('username') //unfollow user with username
 instagram.getMostRecentPostId() //gets most recently posted post id, returns id as string
 instagram.close() //close instance
+```
+
+## Build
+
+The commands below will build the API to a dist directory
+
+```bash
+yarn install
+yarn build
 ```
