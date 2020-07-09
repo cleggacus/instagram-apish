@@ -7,7 +7,7 @@ const username = process.env.username;
 const password = process.env.password;
 
 (async () => {
-    const instagram = await Instagram();
+    const instagram = await Instagram(true);
 
     instagram.login(username ? username : '', password ? password : '')
         .then(mes => {
@@ -18,7 +18,7 @@ const password = process.env.password;
             return instagram.getMostRecentPostId();
         }).then(id => {
             console.log(id);
-            return instagram.delete(id);
+            return instagram.like(id);
         }).then(mes => {
             console.log(mes);
             instagram.close();

@@ -1,9 +1,9 @@
 import Puppeteer from 'puppeteer';
 
-const Instagram = async () => {
+const Instagram = async (dev: boolean = false) => {
     let username = '';
 
-    const browser = await Puppeteer.launch({ headless: true });
+    const browser = await Puppeteer.launch({ headless: !dev });
     const page = await browser.newPage();
     await page.emulate(Puppeteer.devices['iPhone X']);
 
@@ -44,14 +44,67 @@ const Instagram = async () => {
             
             return('Uploaded')
         },
-        like: async () => {
+        like: async (postId: string) => {
+            const x = await page.goto(`https://www.instagram.com/p/${postId}`)
+                .then(() => page.waitForSelector('#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button', {visible: true}))
+                .then(() => page.$('#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button > [aria-label="Like"]'))
+                .then((selector) => {
+                    if(selector !== null){
+                        return page.click('#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button')
+                    }
+                    
+                    return;
+                })
+                .catch((err) => err);
             
+                return('Liked')
         },
-        follow: async () => {
+        unlike: async (postId: string) => {
+            const x = await page.goto(`https://www.instagram.com/p/${postId}`)
+                .then(() => page.waitForSelector('#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button', {visible: true}))
+                .then(() => page.$('#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button > [aria-label="Unlike"]'))
+                .then((selector) => {
+                    if(selector !== null){
+                        return page.click('#react-root > section > main > div > div > article > div.eo2As > section.ltpMr.Slqrh > span.fr66n > button')
+                    }
+                    
+                    return;
+                })
+                .catch((err) => err);
             
+                return('Unliked')
         },
-        unfollow: async () => {
+        follow: async (user: string) => {
+            const x = await page.goto(`https://www.instagram.com/${user}`)
+                .then(() => page.waitForSelector('#react-root > section > main > div > header > section > div.Y2E37 > button', {visible: true}))
+                .then(() => page.$('#react-root > section > main > div > header > section > div.Y2E37 > button.y3zKF'))
+                .then((selector) => {
+                    if(selector !== null){
+                        return page.click('#react-root > section > main > div > header > section > div.Y2E37 > button')
+                    }
+                    
+                    return;
+                })
+                .catch((err) => err);
             
+                return('Followed')
+        },
+        unfollow: async (user: string) => {
+            const x = await page.goto(`https://www.instagram.com/${user}`)
+                .then(() => page.waitForSelector('#react-root > section > main > div > header > section > div.Y2E37 > button', {visible: true}))
+                .then(() => page.$('#react-root > section > main > div > header > section > div.Y2E37 > button._8A5w5'))
+                .then((selector) => {
+                    if(selector !== null){
+                        return page.click('#react-root > section > main > div > header > section > div.Y2E37 > button')
+                            .then(() => page.waitForSelector('body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.-Cab_', {visible: true}))
+                            .then(() => page.click('body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.-Cab_'))
+                    }
+                    
+                    return;
+                })
+                .catch((err) => err); 
+            
+                return('Unfollowed')
         },
         getMostRecentPostId: async () => {
             const x = await page.goto(`https://www.instagram.com/${username}`)
