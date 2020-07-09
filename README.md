@@ -28,7 +28,7 @@ Can either use **await** or **chain commands using promises**
 import InstagramApish from 'instagram-apish';
 
 (async () => {
-    const instagram = await InstagramApish(true); //creates instance of instagram APIish
+    const instagram = await InstagramApish(); //creates instance of instagram APIish
 
     instagram.login('username', 'password') //login
         .then(mes => instagram.upload('123.jpg', 'test')) //uploads image at path '123.jpg' with caption 'test'
